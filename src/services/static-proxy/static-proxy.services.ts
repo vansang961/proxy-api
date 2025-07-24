@@ -24,24 +24,25 @@ export class StaticProxyService implements IStaticProxyService {
     }
 
     async buyStaticProxy(key: string, orderId: string, quantity: number): Promise<any> {
-        if( quantity > 9){
-            return Array(quantity).fill({ product: `Mã đơn hàng: ${orderId} đang order hơn 10 proxy, liên hệ shop hoặc tele: magicsakura1706 để nhận proxy có name pass theo ý bạn` });
-        }
+        // if( quantity > 9){
+        //     return Array(quantity).fill({ product: `Yêu cầu đơn hàng ${orderId} vượt giới hạn proxy. Vui lòng liên hệ bộ phận hỗ trợ hoặc Telegram: magicsakura1706 để nhận hướng dẫn cấu hình nâng cao.` });
+        // }
 
-        const proxyType = StaticProxyTypeMapping[key];
-        if (!proxyType) {
-            throw new Error('Invalid orderId provided');
-        }
-        const fullUrl = `${this.BASE_URL}?key=${encodeURIComponent(process.env.API_KEY_SITE_BUY_PROXY)}&loaiproxy=${encodeURIComponent(proxyType)}&soluong=${encodeURIComponent(quantity)}&ngay=${encodeURIComponent(1)}`;
+        // const proxyType = StaticProxyTypeMapping[key];
+        // if (!proxyType) {
+        //     throw new Error('Invalid orderId provided');
+        // }
+        // const fullUrl = `${this.BASE_URL}?key=${encodeURIComponent(process.env.API_KEY_SITE_BUY_PROXY)}&loaiproxy=${encodeURIComponent(proxyType)}&soluong=${encodeURIComponent(quantity)}&ngay=${encodeURIComponent(1)}`;
         
-        try {
-            const response = await axios.get(fullUrl, { httpsAgent: this.proxyAgent });
-            const proxyList = processProxyResponse(response.data);
-            return proxyList;
-        } catch (error) {
-            console.log("Lỗi:", error.message);
-            return Array(quantity).fill({ product: `Mã đơn hàng: ${orderId} call API lỗi, liên hệ chủ shop để nhận sản phẩm và hỗ trợ` });
-        }
+        // try {
+        //     const response = await axios.get(fullUrl, { httpsAgent: this.proxyAgent });
+        //     const proxyList = processProxyResponse(response.data);
+        //     return proxyList;
+        // } catch (error) {
+        //     console.log("Lỗi:", error.message);
+        //     return Array(quantity).fill({ product: `Mã đơn hàng: ${orderId} call API lỗi, liên hệ chủ shop để nhận sản phẩm và hỗ trợ` });
+        // }
+        return [{"product":"171.224.201.112:57432:sBUoYL:hLiuVu"},{"product":"171.224.206.96:37434:sBUoYL:hLiuVu"}];
     }
 
     async getAmountInventory(): Promise<any> {
@@ -63,34 +64,35 @@ export class StaticProxyService implements IStaticProxyService {
         //     console.error("API call error:", error);
         //     return Promise.resolve({ sum: 22 });
         // }
-        return Promise.resolve({ sum: 270 });
+        return Promise.resolve({ sum: 300 });
     }
 
     async buyStaticProxySocks5(key: string, orderId: string, quantity: number): Promise<any> {
-        if( quantity > 9){
-            return Array(quantity).fill({ product: `Mã đơn hàng: ${orderId} đang order hơn 10 proxy, liên hệ shop hoặc tele: magicsakura1706 để nhận proxy có name pass theo ý bạn` });
-        }
-        const proxyType = StaticProxyTypeMapping[key];
-        if (!proxyType) {
-            throw new Error('Invalid orderId provided');
-        }
+        // if( quantity > 9){
+        //     return Array(quantity).fill({ product: `Mã đơn hàng: ${orderId} đang order hơn 10 proxy, liên hệ shop hoặc tele: magicsakura1706 để nhận proxy có name pass theo ý bạn` });
+        // }
+        // const proxyType = StaticProxyTypeMapping[key];
+        // if (!proxyType) {
+        //     throw new Error('Invalid orderId provided');
+        // }
         
-        const fullUrl = `${this.BASE_URL}?key=${encodeURIComponent(process.env.API_KEY_SITE_BUY_PROXY)}&type=${encodeURIComponent('SOCKS5')}&loaiproxy=${encodeURIComponent(proxyType)}&soluong=${encodeURIComponent(quantity)}&ngay=${encodeURIComponent(30)}`;
-        try {
-            const response = await axios.get(fullUrl, { httpsAgent: this.proxyAgent });
-            const proxyList =  processProxyResponse(response.data);
-                // Gửi thông báo sau 30 giây, không chờ
-                // setTimeout(() => {
-                //     this.notifier.notifyPurchase().catch(err => console.error('Lỗi gửi thông báo:', err));
-                // }, 30000);
-            return proxyList;
-        } catch (error) {
-            return Array(quantity).fill({ product: `Mã đơn hàng: ${orderId} call api đang lỗi, liên hệ chủ shop để nhận sản phẩm và hỗ trợ` });
-        }
+        // const fullUrl = `${this.BASE_URL}?key=${encodeURIComponent(process.env.API_KEY_SITE_BUY_PROXY)}&type=${encodeURIComponent('SOCKS5')}&loaiproxy=${encodeURIComponent(proxyType)}&soluong=${encodeURIComponent(quantity)}&ngay=${encodeURIComponent(1)}`;
+        // try {
+        //     const response = await axios.get(fullUrl, { httpsAgent: this.proxyAgent });
+        //     const proxyList =  processProxyResponse(response.data);
+        //         // Gửi thông báo sau 30 giây, không chờ
+        //         // setTimeout(() => {
+        //         //     this.notifier.notifyPurchase().catch(err => console.error('Lỗi gửi thông báo:', err));
+        //         // }, 30000);
+        //     return proxyList;
+        // } catch (error) {
+        //     return Array(quantity).fill({ product: `Mã đơn hàng: ${orderId} call api đang lỗi, liên hệ chủ shop để nhận sản phẩm và hỗ trợ` });
+        // }
+        return [{"product":"171.224.201.112:57432:sBUoYL:hLiuVu1"},{"product":"171.224.206.96:37434:sBUoYL:hLiuVu1"}];
     }
 
     async getAmountInventorySocks5(): Promise<any> {
-        return Promise.resolve({ sum: 335 });
+        return Promise.resolve({ sum: 350 });
     }
 
 
