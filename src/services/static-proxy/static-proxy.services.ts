@@ -32,7 +32,7 @@ export class StaticProxyService implements IStaticProxyService {
         if (!proxyType) {
             throw new Error('Invalid orderId provided');
         }
-        const fullUrl = `${this.BASE_URL}?key=${encodeURIComponent(process.env.API_KEY_SITE_BUY_PROXY)}&loaiproxy=${encodeURIComponent(proxyType)}&soluong=${encodeURIComponent(quantity)}&ngay=${encodeURIComponent(30)}`;
+        const fullUrl = `${this.BASE_URL}?key=${encodeURIComponent(process.env.API_KEY_SITE_BUY_PROXY)}&loaiproxy=${encodeURIComponent(proxyType)}&soluong=${encodeURIComponent(quantity)}&ngay=${process.env.SO_LUONG_MUA}`;
         
         try {
             const response = await axios.get(fullUrl, { httpsAgent: this.proxyAgent });
@@ -78,7 +78,7 @@ export class StaticProxyService implements IStaticProxyService {
             throw new Error('Invalid orderId provided');
         }
         
-        const fullUrl = `${this.BASE_URL}?key=${encodeURIComponent(process.env.API_KEY_SITE_BUY_PROXY)}&type=${encodeURIComponent('SOCKS5')}&loaiproxy=${encodeURIComponent(proxyType)}&soluong=${encodeURIComponent(quantity)}&ngay=${encodeURIComponent(30)}`;
+        const fullUrl = `${this.BASE_URL}?key=${encodeURIComponent(process.env.API_KEY_SITE_BUY_PROXY)}&type=${encodeURIComponent('SOCKS5')}&loaiproxy=${encodeURIComponent(proxyType)}&soluong=${encodeURIComponent(quantity)}&ngay=${process.env.SO_LUONG_MUA}`;
         try {
             const response = await axios.get(fullUrl, { httpsAgent: this.proxyAgent });
             const proxyList =  processProxyResponse(response.data);
@@ -106,7 +106,7 @@ export class StaticProxyService implements IStaticProxyService {
             throw new Error('Invalid orderId provided');
         }
 
-        const fullUrl = `${this.BASE_URL_V6}?key=${encodeURIComponent(process.env.API_KEY_SITE_BUY_PROXY)}&soluong=${encodeURIComponent(quantity)}&ngay=${encodeURIComponent(30)}`;
+        const fullUrl = `${this.BASE_URL_V6}?key=${encodeURIComponent(process.env.API_KEY_SITE_BUY_PROXY)}&soluong=${encodeURIComponent(quantity)}&ngay=${process.env.SO_LUONG_MUA}`;
         try {
             const response = await axios.post(fullUrl, {}, { httpsAgent: this.proxyAgent });
             const proxyList =  processProxyResponseV6(response.data);
