@@ -2,10 +2,12 @@ import axios from 'axios';
 import { StaticProxyTypeMapping } from '../../enums/proxy.enum';
 import { IStaticProxyService } from './istatic-proxy.service';
 import { HttpsProxyAgent } from 'https-proxy-agent/dist';
+import { TelegramNotifier, TelegramNotification } from '../../utils/telegram';
 
 export class StaticProxyService implements IStaticProxyService {
     private readonly BASE_URL = `${process.env.SITE_BUY_PROXY}/api/muaproxy.php`;
     private readonly BASE_URL_V6 = `${process.env.SITE_BUY_PROXY}/ipv6/apimuaipv6.php`;
+    private telegramNotification:  TelegramNotification;
 
     private readonly proxyAgent: HttpsProxyAgent<string>;
 
@@ -21,6 +23,7 @@ export class StaticProxyService implements IStaticProxyService {
         }
         const proxyUrl = `http://${user}:${pass}@${host}:${port}`;
         this.proxyAgent = new HttpsProxyAgent<string>(proxyUrl);
+        this.telegramNotification = new TelegramNotifier();
     }
 
     async buyStaticProxy(key: string, orderId: string, quantity: number): Promise<any> {
@@ -35,12 +38,19 @@ export class StaticProxyService implements IStaticProxyService {
         const fullUrl = `${this.BASE_URL}?key=${encodeURIComponent(process.env.API_KEY_SITE_BUY_PROXY)}&loaiproxy=${encodeURIComponent(proxyType)}&soluong=${encodeURIComponent(quantity)}&ngay=${process.env.SO_LUONG_MUA}`;
         
         try {
+            // buy proxy
             const response = await axios.get(fullUrl, { httpsAgent: this.proxyAgent });
             const proxyList = processProxyResponse(response.data);
+
+            // send message
+            this.telegramNotification.send(`Khách hàng mua proxy static so luong: ${quantity} \n chi tiết: ${JSON.stringify(proxyList)}`);
+
             return proxyList;
         } catch (error) {
             console.log("Lỗi:", error.message);
-            return Array(quantity).fill({ product: `Mã đơn hàng: ${orderId} call API lỗi, liên hệ chủ shop để nhận sản phẩm và hỗ trợ` });
+            const detailErrors = Array(quantity).fill({ product: `Mã đơn hàng: ${orderId} call API lỗi, liên hệ chủ shop để nhận sản phẩm và hỗ trợ` });
+            this.telegramNotification.send("Khách hàng mua proxy static lỗi: " + error.message);
+            return detailErrors;
         }
 
         // fake data test
