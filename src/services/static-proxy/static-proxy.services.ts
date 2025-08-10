@@ -43,13 +43,13 @@ export class StaticProxyService implements IStaticProxyService {
             const proxyList = processProxyResponse(response.data);
 
             // send message
-            this.telegramNotification.send(`Khách hàng mua proxy static so luong: ${quantity} \n chi tiết: ${JSON.stringify(proxyList)}`);
+            this.telegramNotification.send(`Khách hàng mua proxy static order_id: ${orderId} so luong: ${quantity} \n chi tiết: ${JSON.stringify(proxyList)}`);
 
             return proxyList;
         } catch (error) {
             console.log("Lỗi:", error.message);
             const detailErrors = Array(quantity).fill({ product: `Mã đơn hàng: ${orderId} call API lỗi, liên hệ chủ shop để nhận sản phẩm và hỗ trợ` });
-            this.telegramNotification.send("Khách hàng mua proxy static lỗi: " + error.message);
+            this.telegramNotification.send(`Khách hàng mua proxy static lỗi: order_id: ${orderId} \n chi tiết lỗi: error.message` );
             return detailErrors;
         }
 
