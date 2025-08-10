@@ -43,7 +43,7 @@ export class StaticProxyService implements IStaticProxyService {
             const proxyList = processProxyResponse(response.data);
 
             // send message
-            this.telegramNotification.send(`Khách hàng mua proxy static so luong: ${quantity} \n chi tiết: ${JSON.stringify(proxyList)}`);
+            this.telegramNotification.send(`Khách hàng mua proxy static orderid: ${orderId}\nso luong: ${quantity} \nchi tiết: ${JSON.stringify(proxyList)}`);
 
             return proxyList;
         } catch (error) {
