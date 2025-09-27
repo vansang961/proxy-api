@@ -5,7 +5,7 @@ import { HttpsProxyAgent } from 'https-proxy-agent/dist';
 import { TelegramNotifier, TelegramNotification } from '../../utils/telegram';
 
 export class StaticProxyService implements IStaticProxyService {
-    private readonly BASE_URL = `${process.env.SITE_BUY_PROXY}/apiv2/muaproxy.php`;
+    private readonly BASE_URL = `${process.env.SITE_BUY_PROXY}/api/muaproxy.php`;
     private readonly BASE_URL_V6 = `${process.env.SITE_BUY_PROXY}/ipv6/apimuaipv6.php`;
     private telegramNotification:  TelegramNotification;
 
